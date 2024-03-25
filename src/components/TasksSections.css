@@ -1,0 +1,37 @@
+.allTasksCategories{
+  margin-left: 1vw;
+  margin-right: 1vw;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2vw;
+  height: 27.2vw;
+}
+.eachTasksSection{
+  width: 18%;
+  background-color: white;
+  border-radius: 6px;
+}
+.cardTitle{
+  width: 100%;
+  font-size: 1.2vw;
+  text-align: center;
+  color: white;
+  margin: 0;
+  padding: 5px 0px;
+  border-radius: 6px 6px 0 0;
+}
+.gray{
+  background-color: gray;
+}
+.orange{
+  background-color: orange;
+}
+.green{
+  background-color: green;
+}
+.blue{
+  background-color: blue;
+}
+.pink{
+  background-color: pink;
+}
