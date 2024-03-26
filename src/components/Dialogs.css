@@ -1,0 +1,80 @@
+*{
+  box-sizing: border-box;
+}
+.headerAndClose{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8vw 8%;
+}
+.dialogHeader{
+  margin: 0;
+  font-size: 1.5vw;
+}
+.closeIcon{
+  cursor: pointer;
+}
+.closeIcon:hover{
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+}
+.dialogContent{
+  width: 100%;
+  height: 75%;
+  background:linear-gradient(to right, #ffc0cb4b, #0000ff27);
+  padding: 0.8vw 2vw;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+.label{
+  margin-bottom: 5px;
+  font-size: 1.2vw;
+  margin-right: 0.5vw;
+}
+.dialogInputs{
+  border: 1px solid gray;
+  background-color: #c0c0c04a;
+  outline: none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 0.5vw;
+  font-family: "Poppins";
+  resize: none;
+  font-size: 1vw;
+}
+.selectElementsContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 1vw;
+}
+.selectTags {
+  background-color: white;
+  border-radius: 5px;
+  width:50%;
+  font-size: 1vw;
+  outline: none;
+}
+.buttonContainer{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-self: center;
+  margin-top: 2vw;
+}
+
+.finalButtons{
+  padding: 0.2vw 10% !important;
+  background-color: #33338cf0 !important;
+  font-size: 1vw !important;
+  text-transform: none !important;
+}
+.addTaskSelectEl{
+  background-color: #c0c0c04a;
+  border: 1px solid gray;
+  margin-left: 0;
+}
