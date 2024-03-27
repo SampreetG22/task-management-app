@@ -193,6 +193,7 @@ const Dialogs = ({
                 id="priority"
                 className="selectTags"
                 required
+                value={editingPriority}
                 onChange={(event) => setEditingPriority(event.target.value)}
                 defaultValue={editingPriority}
               >
@@ -210,6 +211,7 @@ const Dialogs = ({
                 id="status"
                 className="selectTags"
                 required
+                value={editingTitle}
                 onChange={(event) => setEditingTitle(event.target.value)}
                 defaultValue={editingTitle}
               >
@@ -233,7 +235,10 @@ const Dialogs = ({
           <Button
             variant="contained"
             className="finalButtons"
-            onClick={closeDialog}
+            onClick={() => {
+              setEditingPriority(task.priority);
+              setEditingTitle(title);
+            }}
           >
             Reset
           </Button>

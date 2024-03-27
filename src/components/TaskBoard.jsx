@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TasksSections from "./TasksSections";
 import Dialogs from "./Dialogs";
-import { Button } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { useEffect } from "react";
 
 export let defaultList = [
@@ -88,13 +88,18 @@ export let defaultList = [
 const TaskBoard = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [tasksToDisplay, setTasksToDisplay] = useState(defaultList);
+  const [tasksToDisplay, setTasksToDisplay] = useState([...defaultList]);
   const [showDialog, setShowDialog] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [dialogType, setDialogType] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
+  const [snackBar, setSnackBar] = useState({
+    open: false,
+    color: "",
+    message: "",
+  });
 
   useEffect(() => {
     const filteredList = defaultList.map((status) => {
@@ -143,8 +148,14 @@ const TaskBoard = () => {
 
   const createNewTask = (taskToCreate) => {
     taskToCreate.created = new Date();
-    tasksToDisplay[0].tasks.push(taskToCreate);
+    defaultList[0].tasks.push(taskToCreate);
+    setTasksToDisplay(defaultList);
     setShowDialog(false);
+    setSnackBar({
+      open: true,
+      color: "success",
+      message: "Task created successfully",
+    });
   };
 
   const editTask = (taskToEdit, newPriority, newStatus) => {
@@ -156,7 +167,6 @@ const TaskBoard = () => {
         );
       }
     });
-
     // Create the edited task object
     const editedTask = {
       taskName: taskToEdit.taskName,
@@ -166,7 +176,9 @@ const TaskBoard = () => {
       priority: newPriority,
       created: taskToEdit.created,
     };
-
+    if (newStatus === "Completed") {
+      editedTask.endDate = new Date();
+    }
     // Find the status to which the task should be added
     const newStatusIndex = tasksToDisplay.findIndex(
       (status) => status.title === newStatus
@@ -175,6 +187,11 @@ const TaskBoard = () => {
       tasksToDisplay[newStatusIndex].tasks.push(editedTask);
     }
     setShowDialog(false);
+    setSnackBar({
+      open: true,
+      color: "success",
+      message: "Task edited successfully",
+    });
   };
 
   const deleteTask = (taskToDelete) => {
@@ -186,6 +203,11 @@ const TaskBoard = () => {
       }
     });
     setShowDialog(false);
+    setSnackBar({
+      open: true,
+      color: "success",
+      message: "Task deleted successfully",
+    });
   };
 
   return (
@@ -202,6 +224,7 @@ const TaskBoard = () => {
               type="text"
               className="inputBox"
               placeholder="Assignee Name"
+              value={nameFilter}
               onChange={(event) => setNameFilter(event.target.value)}
             />
             <select
@@ -209,6 +232,7 @@ const TaskBoard = () => {
               id="priority"
               className="inputBox"
               required
+              value={priorityFilter}
               onChange={(event) => setPriorityFilter(event.target.value)}
             >
               <option value="" defaultValue>
@@ -239,6 +263,8 @@ const TaskBoard = () => {
             <p
               className="clearIcon"
               onClick={() => {
+                setNameFilter("");
+                setPriorityFilter("");
                 setFromDate("");
                 setToDate("");
               }}
@@ -270,6 +296,20 @@ const TaskBoard = () => {
             addTask={createNewTask}
           />
         </div>
+        <Snackbar
+          open={snackBar.open}
+          autoHideDuration={2000}
+          onClose={() => setSnackBar({ ...snackBar, open: false })}
+        >
+          <Alert
+            onClose={() => setSnackBar({ ...snackBar, open: false })}
+            severity={snackBar.color}
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {snackBar.message}
+          </Alert>
+        </Snackbar>
       </div>
       {showDialog && (
         <Dialogs

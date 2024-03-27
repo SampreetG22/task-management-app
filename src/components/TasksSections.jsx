@@ -20,21 +20,23 @@ const TasksSections = ({ tasksList, handleDialogOps }) => {
                     <div className="editAndDelete">
                       <p
                         className="options"
-                        style={{ borderRight: "1px solid gray" }}
                         onClick={() =>
                           handleDialogOps("edit", task, each.title)
                         }
                       >
                         Edit
                       </p>
-                      <p
-                        className="options"
-                        onClick={() =>
-                          handleDialogOps("delete", task, each.title)
-                        }
-                      >
-                        Delete
-                      </p>
+                      {each.title !== "Completed" && (
+                        <p
+                          className="options"
+                          style={{ borderLeft: "1px solid gray" }}
+                          onClick={() =>
+                            handleDialogOps("delete", task, each.title)
+                          }
+                        >
+                          Delete
+                        </p>
+                      )}
                     </div>
                   </div>
                   {/* Task status */}
