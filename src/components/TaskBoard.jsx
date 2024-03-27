@@ -31,7 +31,7 @@ export let defaultList = [
         taskName: "Task 2",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit erat, sed diam nonumy eirmod tempor",
-        assignee: "Sampreet",
+        assignee: "Alpha",
         team: "Progressers",
         priority: "P1",
         created: new Date("January 10, 2024 00:00:00"),
@@ -61,7 +61,7 @@ export let defaultList = [
         taskName: "Task 4",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit erat, sed diam nonumy eirmod tempor",
-        assignee: "Sampreet",
+        assignee: "Beta",
         team: "Deployers",
         priority: "P2",
         created: new Date("March 05, 2024 00:00:00"),
@@ -76,7 +76,7 @@ export let defaultList = [
         taskName: "Task 5",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit erat, sed diam nonumy eirmod tempor",
-        assignee: "Sampreet",
+        assignee: "Gamma",
         team: "Deferrers",
         priority: "P2",
         created: new Date("Feb 01, 2024 00:00:00"),
