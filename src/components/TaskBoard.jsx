@@ -147,15 +147,22 @@ const TaskBoard = () => {
   };
 
   const createNewTask = (taskToCreate) => {
-    taskToCreate.created = new Date();
-    defaultList[0].tasks.push(taskToCreate);
-    setTasksToDisplay(defaultList);
-    setShowDialog(false);
-    setSnackBar({
-      open: true,
-      color: "success",
-      message: "Task created successfully",
-    });
+    const isTaskExists = defaultList[0].tasks.some(
+      (task) => task.taskName === taskToCreate.taskName
+    );
+    if (isTaskExists) {
+      alert("Task with the same name already exists!");
+    } else {
+      taskToCreate.created = new Date();
+      defaultList[0].tasks.push(taskToCreate);
+      setTasksToDisplay(defaultList);
+      setShowDialog(false);
+      setSnackBar({
+        open: true,
+        color: "success",
+        message: "Task created successfully",
+      });
+    }
   };
 
   const editTask = (taskToEdit, newPriority, newStatus) => {
