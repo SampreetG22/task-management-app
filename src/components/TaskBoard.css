@@ -39,7 +39,7 @@
 }
 .filterByText{
   font-size: 1.1vw;
-  width: 6vw;
+  min-width: 6vw;
 }
 .inputBox,.inputBoxDates{
   background-color: white;
@@ -90,8 +90,8 @@ option {
   text-decoration: underline;
 }
 .addTaskButton{
-  margin-left: 30% !important;
-  width: 20% !important;
+  width: 15% !important;
+  height: 2% !important;
   background-color: #33338cf0 !important;
   font-size: 1vw !important;
   text-transform: none !important;

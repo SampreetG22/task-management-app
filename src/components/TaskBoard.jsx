@@ -16,6 +16,15 @@ export let defaultList = [
         taskName: "Task 1",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit erat, sed diam nonumy eirmod tempor",
+        assignee: "Marvel",
+        team: "Avengers",
+        priority: "P2",
+        created: new Date("December 17, 2023 00:00:00"),
+      },
+      {
+        taskName: "Task 1",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit erat, sed diam nonumy eirmod tempor",
         assignee: "Rookie",
         team: "Avengers",
         priority: "P0",
@@ -66,6 +75,15 @@ export let defaultList = [
         priority: "P2",
         created: new Date("March 05, 2024 00:00:00"),
       },
+      {
+        taskName: "Task 4",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit erat, sed diam nonumy eirmod tempor",
+        assignee: "Beta",
+        team: "Deployers",
+        priority: "P0",
+        created: new Date("March 05, 2024 00:00:00"),
+      },
     ],
   },
   {
@@ -100,6 +118,7 @@ const TaskBoard = () => {
     color: "",
     message: "",
   });
+  const [sortBy, setSortBy] = useState("Priority");
 
   useEffect(() => {
     const filteredList = defaultList.map((status) => {
@@ -119,6 +138,27 @@ const TaskBoard = () => {
     });
     setTasksToDisplay(filteredList);
   }, [nameFilter, priorityFilter, fromDate, toDate]);
+
+  useEffect(() => {
+    const sortedList = defaultList.map((status) => {
+      let sortedTasks = [...status.tasks];
+      if (sortBy === "Priority") {
+        sortedTasks.sort((a, b) => {
+          const priorityOrder = { P0: 0, P1: 1, P2: 2 };
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+        });
+      } else if (sortBy === "Start Date") {
+        sortedTasks.sort((a, b) => a.created - b.created);
+      } else if (sortBy === "End Date") {
+        sortedTasks =
+          status.title === "Completed"
+            ? [...status.tasks].sort((a, b) => b.endDate - a.endDate)
+            : [...status.tasks];
+      }
+      return { ...status, tasks: sortedTasks };
+    });
+    setTasksToDisplay(sortedList);
+  }, [sortBy]);
 
   const handleFromDateChange = (date) => {
     setFromDate(date);
@@ -226,58 +266,68 @@ const TaskBoard = () => {
         </div>
         <div className="tasksContainer">
           <div className="filteringSections">
-            <p className="filterByText">Filter By: </p>
-            <input
-              type="text"
-              className="inputBox"
-              placeholder="Assignee Name"
-              value={nameFilter}
-              onChange={(event) => setNameFilter(event.target.value)}
-            />
-            <select
-              name="priority"
-              id="priority"
-              className="inputBox"
-              required
-              value={priorityFilter}
-              onChange={(event) => setPriorityFilter(event.target.value)}
-            >
-              <option value="" defaultValue>
-                Priority
-              </option>
-              <option value="P0">P0</option>
-              <option value="P1">P1</option>
-              <option value="P2">P2</option>
-            </select>
-            <div className="dateContainer">
-              <DatePicker
-                selected={fromDate}
-                onChange={handleFromDateChange}
-                className="inputBoxDates"
-                placeholderText="DD/MM/YYYY"
-                dateFormat="dd/MM/yyyy"
-              />
-              -
-              <DatePicker
-                selected={toDate}
-                onChange={handleToDateChange}
-                className="inputBoxDates"
-                placeholderText="DD/MM/YYYY"
-                dateFormat="dd/MM/yyyy"
-                minDate={fromDate}
-              />
-            </div>
-            <p
-              className="clearIcon"
-              onClick={() => {
-                setNameFilter("");
-                setPriorityFilter("");
-                setFromDate("");
-                setToDate("");
+            <div
+              style={{
+                width: "50vw",
+                display: "flex",
+                alignItems: "center",
+                flexGrow: 1,
               }}
             >
-              Clear
-            </p>
+              <p className="filterByText">Filter By: </p>
+              <input
+                type="text"
+                className="inputBox"
+                placeholder="Assignee Name"
+                value={nameFilter}
+                onChange={(event) => setNameFilter(event.target.value)}
+              />
+              <select
+                name="priority"
+                id="priority"
+                className="inputBox"
+                required
+                value={priorityFilter}
+                onChange={(event) => setPriorityFilter(event.target.value)}
+              >
+                <option value="" defaultValue>
+                  Priority
+                </option>
+                <option value="P0">P0</option>
+                <option value="P1">P1</option>
+                <option value="P2">P2</option>
+              </select>
+              <div className="dateContainer">
+                <DatePicker
+                  selected={fromDate}
+                  onChange={handleFromDateChange}
+                  className="inputBoxDates"
+                  placeholderText="DD/MM/YYYY"
+                  dateFormat="dd/MM/yyyy"
+                />
+                -
+                <DatePicker
+                  selected={toDate}
+                  onChange={handleToDateChange}
+                  className="inputBoxDates"
+                  placeholderText="DD/MM/YYYY"
+                  dateFormat="dd/MM/yyyy"
+                  minDate={fromDate}
+                />
+              </div>
+              <p
+                className="clearIcon"
+                onClick={() => {
+                  setNameFilter("");
+                  setPriorityFilter("");
+                  setFromDate("");
+                  setToDate("");
+                }}
+              >
+                Clear
+              </p>
+            </div>
+
             <Button
               variant="contained"
               className="addTaskButton"
@@ -288,7 +338,14 @@ const TaskBoard = () => {
           </div>
           <div className="sortBySection">
             <p className="filterByText">Sort By: </p>
-            <select name="priority" id="priority" className="inputBox" required>
+            <select
+              name="priority"
+              id="priority"
+              className="inputBox"
+              required
+              value={sortBy}
+              onChange={(event) => setSortBy(event.target.value)}
+            >
               <option value="Priority" defaultValue>
                 Priority
               </option>

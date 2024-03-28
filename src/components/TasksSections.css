@@ -8,6 +8,7 @@
 }
 .eachTasksSection{
   width: 19%;
+  height: 90%;
   background-color: white;
   border-radius: 6px;
   display: flex;
@@ -47,6 +48,7 @@
 }
 .eachTaskContainer{
   width: 88%;
+  height: 70%;
   background-color: #c0c0c04a;
   border-radius: 6px;
   margin: 1vw 0.5vw;
