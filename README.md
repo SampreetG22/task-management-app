@@ -1,3 +1,4 @@
+# Task-management-web-app
 ## OVERVIEW
 1. The instructions are pretty simple. Firstly, clone the repo locally and install all the node modules using the command **npm i**. 
 2. Now run the react app using the command **npm start** and this will open the development server using your localhost on port 3000.
@@ -6,10 +7,10 @@
 ## DEFAULTS
 To test the app and UI, a default tasks list is hardcoded in the codes since there is no backend involved in this whole application. This list covers all the statuses "Pending", "In Progress", "Completed", "Deployed" and "Deferred". Any new task added or edited will be pushed into this default list. 
 
-# UI/UX ENHANCERS
+## UI/UX ENHANCERS
 To improve the user experience and make the UI more aesthetic, a few feedback components are added like a snack bar which pops up when tasks are added, edited, or deleted. These snack bars also show the errors occurring while performing any of the operations.
 
-# React App Commands for future works
+## React App Commands for future works
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
